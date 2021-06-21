@@ -17,3 +17,12 @@ img {
     width: 80%;
     max-width: 800px;
 }
+#tribute-info {
+    width: 80%;
+}
+li {
+    margin-top: 10px;
+}
+footer {
+    font-weight: bold;
+}

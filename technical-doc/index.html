@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HapiJS Tutorials</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <script>alert('all content from hapi.dev')</script>
+    <nav id="navbar">
+        <header>
+            <h1>HapiJS Tutorials</h1>
+        </header>
+        <a href="#getting_started" class="nav-link">Getting Started</a>
+        <a href="#overview" class="nav-link">Overview</a>
+        <a href="#installing_hapi" class="nav-link">Installing Hapi</a>
+        <a href="#creating_a_server" class="nav-link">Creating a Server</a>
+        <a href="#adding_routes" class="nav-link">Adding Routes</a>
+        <a href="#everything_else" class="nav-link">Everything Else</a>
+        <a href="#express_migration" class="nav-link">Express Migration</a>
+    </nav>
+    <main id="main-doc">
+        <section id="getting_started" class="main-section">
+            <header>
+                <h2>Getting Started</h2>
+            </header>
+            <p><em>This tutorial is compatible with hapi v17 and newer</em></p>
+            <hr>
+        </section>
+        <section id="overview" class="main-section">
+            <header>
+                <h2>Overview</h2>
+            </header>
+            <p>This tutorial will show how to set up a basic hapi server that displays "Hello World!" in your browser</p>
+        </section>
+        <section id="installing_hapi" class="main-section">
+            <header>
+                <h2>Installing hapi</h2>
+            </header>
+            <p>Create a new directory <span class="highlight">myproject</span>, and from there:</p>
+            <ul>
+                <li>Run: <span class="highlight">cd myproject</span>, this goes into the created project folder</li>
+                <li>Run: <span class="highlight">npm init</span> and follow the prompts. This will generate a package.json file for you</li>
+                <li>Run: <span class="highlight">npm instal @hapi/hapi</span>, this will install the latest version of hapi as a dependency in your package.json</li>
+            </ul>
+        </section>
+        <section id="creating_a_server" class="main-section">
+            <header>
+                <h2>Creating a Server</h2>
+            </header>
+            <p>A very basic hapi server looks like the following:</p>
+            <pre><code>
+    'use strict';
+
+    const Hapi = require('@hapi/hapi');
+
+    const init = async () => {
+        
+        const server = Hapi.server({
+            port: 3000,
+            host: 'localhost',
+        });
+
+        await server.start();
+        console.log(``Server running on ${server.info.uri}`);
+    }
+
+    process.on('unhandledRejection', (err) => {
+        console.log(err);
+        process.exit(1);
+    })
+
+    init();
+            </code></pre>
+            <p>
+                First, you require hapi. Then you initialize a new <span class="highlight">Hapi.server()</span>
+                with connection details containing a port number to listen on the host information. After that you
+                start the server and log that it's running.
+            </p>
+            <p>
+                When creating a server, you can provide a hostname, IP address, a Unix socket file, or Windows named
+                pipe to bind the server to. For more details, see the API reference.
+            </p>
+            <p>
+                The <span class="highlight">host</span> property set to <span class="highlight">localhost</span> is likely
+                the safest choice. In a docker container, however, the localhost may not be accessible outside of the container
+                and using <span class="highlight">host: '0.0.0.0'</span> may be needed.
+            </p>
+        </section>
+        <section id="adding_routes" class="main-section">
+            <header>
+                <h2>Adding Routes</h2>
+            </header>
+            <p>
+                After you get the server up and running, its time to add a route that will display "Hello World!" in your browser.
+            </p>
+            <pre><code>
+'use strict';
+
+const Hapi = require('@hapi/hapi');
+
+const init = async () = {
+    
+    const server = Hapi.server({
+        port: 3000,
+        host: 'localhost',
+    });
+
+    server.route({
+        method: 'GET',
+        path: '',
+        handler: (request, h) => {
+            
+            return 'Hello World';
+        }
+    });
+
+    await server.start();
+    console.log(`Server running on ${server.info.uir}`);
+}
+
+process.on('unhandledRejection', (err) => {
+
+    console.log(err);
+    process.exit(1);
+});
+
+init();
+            </code></pre>
+            <p>
+                Save the above as index.js and start the server with the command node index.js. Now you'll find that if you
+                visit http://localhost:3000 in your browser, you'll see the text 'Hello, World!'.
+            </p>
+            <p>
+                The method property can be any valid HTTP method, array of HTTP methods, or an asterisk to allow any method.
+            </p>
+            <p>
+                The path property defines the path including parameters. It can contain optional parameters,
+                numbered parameters, and even wildcards. For more details, see the routing tutorial.
+            </p>
+            <p>
+                The handler function performs the main business logic of the route and sets the response. The handler must
+                return a value, a promise, or throw an error.
+            </p>
+        </section>
+        <section id="everything_else" class="main-section">
+            <header>
+                <h2>Everything Else</h2>
+            </header>
+            <p>
+                hapi has many, many other capabilities and only a select few are documented in tutorials here. This
+                tutorial was intentionally minimal, we highly recommend you to check out the plugins tutorial. It will
+                give some more knowledge to better organize your hapi project. We also have other tutorials of interest,
+                please use the list to your left to check them out. Everything else is documented in the API reference and,
+                as always, feel free to ask questions on github or just visit us on slack.
+            </p>
+        </section>
+        <section id="express_migration" class="main-section">
+            <header>
+                <h2>Express Migration</h2>
+            </header>
+            <ul>
+                <li>Installation</li>
+                    <p>Express:</p>
+                    <span class="highlight">npm install express</span>
+                    <p>hapi:</p>
+                    <span class="highlight">npm install @hapi/hapi</span>
+                <li>Creating a Server</li>
+                    <p>Express:</p>
+                    <pre><code>
+var express = require('express');
+var app = express();
+
+app.listen(3000, function () {
+    console.log('Server is running on port 3000');
+});
+                    </code></pre>
+                    <p>hapi:</p>
+                    <pre><code>
+const Hapi = require('@hapi/hapi')
+
+const init = async () => {
+
+    const server = Hapi.server({
+        port:3000,
+        host: 'localhost',
+    });
+
+    await server.start();
+    console.log('Server runnin on port 3000');
+};
+
+init();
+                    </code></pre>
+                <li>Routes</li>
+                    <p>Express:</p>
+                    <pre><code>
+app.get('/hello', function (req, res) {
+    res.send('Hello World!');
+});
+                    </code></pre>
+                    <p>hapi</p>
+                    <pre><code>
+server.route({
+    methode: 'GET',
+    path: '/hello',
+    handler: (request, h) => {
+
+        return 'Hello World!';
+    }
+});
+                    </code></pre>
+            </ul>
+        </section>
+    </main>
+    <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+</body>
+</html>

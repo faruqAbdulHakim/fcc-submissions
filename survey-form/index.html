@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>appName Survey Form</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div id="big-img">
+        <div id="overlay"></div>
+    </div>
+    <header class="text-center">
+        <h1 id="title">appName Survey Form</h1>
+        <p id="description">
+            <em>Thank you for taking the time to help us improve the platform</em>
+        </p>
+    </header>
+    <form id="survey-form">
+        <div class="form-groups">
+            <label for="name" id="name-label">Name</label><br>
+            <input type="text" id="name" placeholder="Enter your name" required>
+        </div>
+        <div class="form-groups">
+            <label for="email" id="email-label">Email</label><br>
+            <input type="email" id="email" placeholder="Enter your email" required>
+        </div>
+        <div class="form-groups">
+            <label for="number" id="number-label">Age</label><br>
+            <input type="number" id="number" placeholder="Age" min="10" max="100" required>
+        </div>
+        <div class="form-groups">
+            <label for="dropdown">Role</label><br>
+            <select name="role" id="dropdown" required>
+                <option value="" selected disabled>Select an option</option>
+                <option value="student">Student</option>
+                <option value="lecturer">Lecturer</option>
+                <option value="unknown">Prefer not to say</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+        <div class="form-groups">
+            <fieldset>
+                <legend>Would you recommend appName to your friend?</legend>
+                <input type="radio" name="recommend" id="definitely" value="definititely" checked>
+                <label for="definitely"> Definitely</label><br>
+                <input type="radio" name="recommend" id="maybe" value="maybe"> 
+                <label for="maybe">Maybe</label><br>
+                <input type="radio" name="recommend" id="notsure" value="notsure"> 
+                <label for="notsure">Not Sure</label><br>
+            </fieldset>
+        </div>
+        <div class="form-groups">
+            <fieldset>
+                <legend>Where do you know appName from?</legend>
+                <label for="facebook">
+                    <input type="checkbox" name="knowfrom" id="facebook" value="facebook"> Facebook
+                </label><br>
+                <label for="instagram">
+                    <input type="checkbox" name="knowfrom" id="instagram" value="instagram"> Instagram
+                </label><br>
+                <label for="youtube">
+                    <input type="checkbox" name="knowfrom" id="youtube" value="youtube"> Youtube
+                </label><br>
+                <label for="friend">
+                    <input type="checkbox" name="knowfrom" id="friend" value="friend"> Friend Recommendation
+                </label><br>
+                <label for="others">
+                    <input type="checkbox" name="knowfrom" id="others" value="others"> Others
+                </label><br>
+            </fieldset>
+        </div>
+        <div class="form-groups">
+            <label for="textarea">Any Comments or Suggestions?</label>
+            <textarea name="comments" id="textarea"  placeholder="Comments or Suggestions goes here"></textarea>
+        </div>
+        <button id="submit">submit</button>
+        <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+    </form>
+</body>
+</html>
